@@ -160,7 +160,7 @@ INPT5       ds 1	; $0D		x000 0000       Read Input (Trigger) 1
 	; RIOT MEMORY MAP
 
 SWCHA       ds 1    ; $280      Port A data register for joysticks:
-					;			Bits 4-7 for player 1.  Bits 0-3 for player 2.
+					;Bits 4-7 for player 1.  Bits 0-3 for player 2.
 
 SWACNT      ds 1    ; $281      Port A data direction register (DDR)
 SWCHB       ds 1    ; $282		Port B data (console switches)
