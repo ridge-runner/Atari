@@ -54,17 +54,27 @@ Vblank  ; 37 lines for VBLANK
 ;; VISIBLE PLAYFIELD
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 ;;;;;;; SETUP BACKGROUND ;;;;;;;;
-	
-        lda #2
-        ldx #48
-Visible
+        
+        ldx #$81 ; Color ctrl
+        stx $80 ; stored 
+gameloop
         stx COLUBK
         sta WSYNC
         
-        ;bne Visible
         
 
+;;;;;;;; SETUP PLAYFIELD ;;;;;;;
+	
+        ldx #$1F ;set playfield color
+	stx $81
+        ldy #$4
+
+	stx COLUPF
+        sty PF0
+        
+        bne gameloop
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  OVERSCAN
