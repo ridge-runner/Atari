@@ -1,2 +1,92 @@
 
+	processor 6502
+        
+        include "vcs.h"
+        include "macro.h"
+        include "xmacro.h"
+        
+	seg code
+        org $F000
+        
+        
+Start
+	CLEAN_START
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Starting a new frame
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+StartFrame
+	;;;;;; SYNC SETUP  ;;;;;;;
+        
+        lda #2
+        
+        sta VSYNC  ; SWITCH ON
+        sta VBLANK ; SWITCH ON
+        
+        
+        ;;;;;;; VSYNC ;;;;;;
+        
+        ldx #3
+        
+Vsync	; 3 lines for VSYNC
+	sta WSYNC
+        dex
+        bne Vsync
+        
+        lda #0
+        sta VSYNC ; turn off
+        
+        ;;;;; VBLANK ;;;;;;;
+        
+	ldx #37
+
+Vblank  ; 37 lines for VBLANK
+	sta WSYNC
+        dex 
+        bne Vblank
+
+;;;;;;;; VSYNC & VBLANK BREAKDOWN ;;;;;;;;
+	lda #0           
+        sta VBLANK ; turn off vblank
+        
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; VISIBLE PLAYFIELD
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;; SETUP BACKGROUND ;;;;;;;;
 	
+        lda #2
+        ldx #48
+Visible
+        stx COLUBK
+        sta WSYNC
+        
+        ;bne Visible
+        
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  OVERSCAN
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	lda #2
+        sta VBLANK ; Turn on
+        
+        ldx #30
+        
+Overscan
+	lda WSYNC
+        dex
+        bne Overscan
+
+	lda #0
+        sta VBLANK ; Turn Off
+        sta RSYNC
+        
+        jmp StartFrame
+
+;;;;;;;;;;;;;;; EPILOGUE ;;;;;;;;;;;;;;;
+	org $FFFC
+        .word Start
+        .word Start
