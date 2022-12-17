@@ -56,25 +56,73 @@ Vblank  ; 37 lines for VBLANK
 
 
 ;;;;;;; SETUP BACKGROUND ;;;;;;;;
+	lda #$81
+        sta COLUBK
         
-        ldx #$81 ; Color ctrl
-        stx $80 ; stored 
-gameloop
-        stx COLUBK
-        sta WSYNC
-        
-        
+        lda #$1F
+        sta COLUPF        
 
 ;;;;;;;; SETUP PLAYFIELD ;;;;;;;
+;;           197 lines 	;;
 	
-        ldx #$1F ;set playfield color
-	stx $81
-        ldy #$4
-
-	stx COLUPF
-        sty PF0
+       ldx #7
+LP_top
+	sta WSYNC
+        dex
+        bne LP_top
         
-        bne gameloop
+;; Playfield border top
+	ldx #7
+LP_topBrdr
+	
+	lda #%1110
+        sta PF0
+        sta WSYNC
+        lda #%11111111
+        
+	sta PF1
+        ;sta WSYNC
+        
+        sta PF2
+        ;sta WSYNC
+        dex
+        bne LP_topBrdr
+
+;; Playfield border sides
+
+	ldx #164
+LP_sideBrdr
+	
+        ;sta WSYNC
+        lda #%1010
+        sta PF0
+        dex
+        bne LP_sideBrdr
+
+;; Playfield border bottom
+	ldx #7
+LP_bottomBrdr
+	
+        lda #%1111
+        sta PF0
+        sta PF1
+        sta PF2
+        dex
+        bne LP_bottomBrdr
+        
+;; background bottom
+	ldx #7
+LP_bottomBkgrd
+	
+        ;lda WSYNC
+        dex
+        bne LP_bottomBkgrd
+        
+        
+	
+        
+        
+        
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  OVERSCAN
