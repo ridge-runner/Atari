@@ -10,8 +10,11 @@ Learning how to Program Atari ROMs
 * other files standard with git repos.
 
 ## DEV LOG 
+### UPDATE (so lack thereof)
+This has been placed on the back burner for the time being. Starting this project fired up within me a fascination with low-level systems programming.  I've since started learning C++ and C and recently began learning x86_64 assembly.  I get a certain feeling of control when I use these technologies, even though they are mostly academic exercises and don't have much in the way of practical, real-world value.  I recently read through some x64 code that called the Linux GUI API. It was really interesting in that everything was laid bare. I could see how everything worked in the background (for the most part.) 
+
 ### Starting point.
-**2/10/22** Just getting used to the development environment and "platform" of the Atari 2600/VCS. So far, I've learned how to switch on the controls for the TIA chip that controls screen output for NTSC/PAL devices. I haven't made it to audio output and controller input yet.  I have become relatively comfortable with the 6502 Opcodes/Nemonics over the last day or two.
+**2/10/23** Just getting used to the development environment and "platform" of the Atari 2600/VCS. So far, I've learned how to switch on the controls for the TIA chip that controls screen output for NTSC/PAL devices. I haven't made it to audio output and controller input yet.  I have become relatively comfortable with the 6502 Opcodes/Nemonics over the last day or two.
 
 **Cathod Ray Tube TVs**
 Having grown up around CRT-TVs, I had no idea how these were programmed. So, this has been a worthwhile time investment just to come to grips with how the Atari developers managed to build user experiences with these systems.
